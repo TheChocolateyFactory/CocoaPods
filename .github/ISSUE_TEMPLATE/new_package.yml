@@ -1,0 +1,48 @@
+name: New Chocolatey Package request
+description: Submit a new piece of software to be packaged
+title: "New Tip Submission - Ignore this field and fill in the ones below"
+labels: ["automation-new-tip-issue-do-not-use"]
+body:
+  # NOTE: The input label, required validation, and order is used by the process-new-powershell-tip-issue.yml workflow to extract the data from the issue body.
+  # DO NOT change the labels or required validation or ordering without also changing the regex parsing logic of that file.
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing to tiPS! Fill out the fields below to submit a new PowerShell tip.
+
+  - type: input
+    id: PackageID
+    attributes:
+      label: The package id
+      description: A relevant package id
+      placeholder: e.g. software-name
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Software download url
+      description: This is the url to download the installer
+      placeholder: https://dl.example.com/software.exe
+    validations:
+      required: true
+
+  - type: input
+    id: silentArgs
+    attributes:
+      label: Installer silent arguments
+      description: Provide the arguments used to install the software silently
+      render: powershell
+      placeholder: Provide example code here...
+
+  - type: dropdown
+    id: installertype
+    attributes:
+      label: Installer Type
+      description: Select the Installer type.
+      options:
+        - EXE
+        - MSI
+    validations:
+      required: true
