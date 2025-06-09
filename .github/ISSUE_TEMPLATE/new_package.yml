@@ -1,14 +1,14 @@
 name: New Chocolatey Package request
 description: Submit a new piece of software to be packaged
-title: "New Tip Submission - Ignore this field and fill in the ones below"
-labels: ["automation-new-tip-issue-do-not-use"]
+title: "Create a package request"
+labels: ["chocolatey-package"]
 body:
   # NOTE: The input label, required validation, and order is used by the process-new-powershell-tip-issue.yml workflow to extract the data from the issue body.
   # DO NOT change the labels or required validation or ordering without also changing the regex parsing logic of that file.
   - type: markdown
     attributes:
       value: |
-        Thanks for contributing to tiPS! Fill out the fields below to submit a new PowerShell tip.
+        Have software you'd like packaged with Chocolatey? Fill out the form below.
 
   - type: input
     id: PackageID
