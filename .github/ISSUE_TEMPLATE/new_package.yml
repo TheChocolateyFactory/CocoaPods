@@ -33,7 +33,6 @@ body:
     attributes:
       label: Installer silent arguments
       description: Provide the arguments used to install the software silently
-      render: powershell
       placeholder: Provide example code here...
 
   - type: dropdown
