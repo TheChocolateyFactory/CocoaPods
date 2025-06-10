@@ -10,7 +10,7 @@ defaults:
 jobs:
   create-package:
     if: contains(github.event.issue.labels.*.name, 'chocolatey-package-automation')
-    runs-on: windows-latest
+    runs-on: self-hosted
     permissions:
       contents: write
       issues: write
