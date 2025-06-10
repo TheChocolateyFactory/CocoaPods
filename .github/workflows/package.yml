@@ -41,7 +41,7 @@ jobs:
             Author = ${{ github.event.issue.body.author }}
             InstallerType = ${{ github.event.issue.body.installertype }}
             Summary = ${{ github.event.issue.body.summary }}
-            Description = ${{ github.event.issue.body.description }}
+            Description = "`"${{ github.event.issue.body.description }}`""
           }
 
           .\build.ps1 @splat
