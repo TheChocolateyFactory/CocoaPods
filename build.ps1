@@ -40,9 +40,11 @@ Param(
 )
 
 end {
-    $tempDir = Join-Path $env:TEMP -ChildPath (New-Guid).Guid
+    
 
     # Create our temp dir
+    $tempDir = Join-Path $env:TEMP -ChildPath (New-Guid).Guid
+    
     if (-not (Test-Path $tempDir)) {
         $null = New-Item $tempDir -ItemType Directory
     }
@@ -71,10 +73,9 @@ end {
     choco new $PackageId --version="$PackageVersion" --template='webinar' Url="$Url" SoftwareName="$SoftwareName" silentArgs="$SilentArgs" validExitCodes="$ValidExitCodes" Checksum="$checksum" Author="$Author" InstallerType="$InstallerType" Summary="$Summary" Description="$Description" --output-directory="$tempDir" --build-package
     $nuspec = (Get-ChildItem $tempDir -Recurse -Filter '*.nuspec').FullName
 
-    # Pack the bitch
+    # Generate the package
     choco pack $nuspec --output-directory="$tempDir"
+
     # Output our temp dir for the publish step
     Write-Output "TempDir=$($tempDir)" >> $Env:GITHUB_OUTPUT
-
-    return $Env:GITHUB_OUTPUT
 }
