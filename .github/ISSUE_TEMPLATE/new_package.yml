@@ -1,10 +1,8 @@
 name: New Chocolatey Package request
 description: Submit a new piece of software to be packaged
-title: "Create a package request"
-labels: ["chocolatey-package"]
+title: "New Chocolatey Package Request:"
+labels: ["chocolatey-package-automation"]
 body:
-  # NOTE: The input label, required validation, and order is used by the process-new-powershell-tip-issue.yml workflow to extract the data from the issue body.
-  # DO NOT change the labels or required validation or ordering without also changing the regex parsing logic of that file.
   - type: markdown
     attributes:
       value: |
@@ -13,8 +11,8 @@ body:
   - type: input
     id: PackageID
     attributes:
-      label: The package id
-      description: A relevant package id
+      label: Package Id
+      description: A relevant package id to give the package.
       placeholder: e.g. software-name
     validations:
       required: true
@@ -22,7 +20,7 @@ body:
   - type: input
     id: url
     attributes:
-      label: Software download url
+      label: Software Download Url
       description: This is the url to download the installer
       placeholder: https://dl.example.com/software.exe
     validations:
@@ -31,9 +29,18 @@ body:
   - type: input
     id: silentArgs
     attributes:
-      label: Installer silent arguments
+      label: Silent Arguments
       description: Provide the arguments used to install the software silently
-      placeholder: Provide example code here...
+      placeholder: /qn /norestart
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: Software Author
+      description: The author of the software.
+      placeholder: e.g. Microsoft
 
   - type: dropdown
     id: installertype
@@ -43,5 +50,23 @@ body:
       options:
         - EXE
         - MSI
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Package Summary
+      description: Provide a brief summary of the software.
+      placeholder: e.g. This software is used for doing great things.
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Package Description
+      description: Provide a brief description of the software.
+      placeholder: e.g. This is a great software that does amazing things.
     validations:
       required: true
