@@ -27,7 +27,7 @@ body:
       required: true
 
   - type: input
-    id: url
+    id: softwaredownloadurl
     attributes:
       label: Software Download Url
       description: This is the url to download the installer
@@ -36,7 +36,7 @@ body:
       required: true
 
   - type: input
-    id: silentargs
+    id: silentarguments
     attributes:
       label: Silent Arguments
       description: Provide the arguments used to install the software silently
@@ -54,7 +54,7 @@ body:
       required: true
 
   - type: input
-    id: author
+    id: softwareauthor
     attributes:
       label: Software Author
       description: The author of the software.
@@ -81,9 +81,9 @@ body:
       required: true
 
   - type: textarea
-    id: description
+    id: softwaredescription
     attributes:
-      label: Package Description
+      label: Software Description
       description: Provide a brief description of the software.
       placeholder: e.g. This is a great software that does amazing things.
     validations:

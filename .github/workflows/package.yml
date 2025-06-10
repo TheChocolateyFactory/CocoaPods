@@ -45,13 +45,13 @@ jobs:
             $splat = @{
               PackageId = "`"${{ steps.body.outputs.packageid }}`""
               PackageVersion = "`"${{ steps.body.outputs.packageversion }}`""
-              Url = "`"${{ steps.body.outputs.url }}`""
+              Url = "`"${{ steps.body.outputs.softwaredownloadurl }}`""
               SoftwareName = "`"${{ steps.body.outputs.softwareName }}`""
-              SilentArgs = "`"${{ steps.body.outputs.silentargs }}`""
+              SilentArgs = "`"${{ steps.body.outputs.silentarguments }}`""
               ValidExitCodes = "`"${{ steps.body.outputs.validexitcodes }}`""
-              Author = "`"${{ steps.body.outputs.author }}`""
+              Author = "`"${{ steps.body.outputs.softwareauthor }}`""
               InstallerType = "`"${{ steps.body.outputs.installertype }}`""
-              Description = "`"${{ steps.body.outputs.description }}`""
+              Description = "`"${{ steps.body.outputs.softwaredescription }}`""
             }
 
             .\build.ps1 @splat

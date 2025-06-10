@@ -22,7 +22,8 @@ process {
 
     # Output the hashtable
     $hashtable.GetEnumerator() | ForEach-Object {
-        $string = '{0}={1}' -f $_.Key, "$($_.Value)"
+        $string = '{0}={1}' -f $($_.Key).ToLower(), "$($_.Value)"
+        Write-Output "Setting output: $string"
         Write-Output $string >> $Env:GITHUB_OUTPUT
     }
 }
