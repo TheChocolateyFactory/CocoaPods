@@ -43,24 +43,24 @@ jobs:
         id: package
         run: |
             $splat = @{
-              PackageId = "`"${{ steps.body.outputs.packageid }}`""
-              PackageVersion = "`"${{ steps.body.outputs.packageversion }}`""
-              Url = "`"${{ steps.body.outputs.softwaredownloadurl }}`""
-              SoftwareName = "`"${{ steps.body.outputs.softwareName }}`""
-              SilentArgs = "`"${{ steps.body.outputs.silentarguments }}`""
-              ValidExitCodes = "`"${{ steps.body.outputs.validexitcodes }}`""
-              Author = "`"${{ steps.body.outputs.softwareauthor }}`""
-              InstallerType = "`"${{ steps.body.outputs.installertype }}`""
-              Description = "`"${{ steps.body.outputs.softwaredescription }}`""
+              PackageId = "${{ steps.body.outputs.packageid }}"
+              PackageVersion = "${{ steps.body.outputs.packageversion }}"
+              Url = "${{ steps.body.outputs.softwaredownloadurl }}"
+              SoftwareName = "${{ steps.body.outputs.softwareName }}"
+              SilentArgs = "${{ steps.body.outputs.silentarguments }}"
+              ValidExitCodes = "${{ steps.body.outputs.validexitcodes }}"
+              Author = "${{ steps.body.outputs.softwareauthor }}"
+              InstallerType = "${{ steps.body.outputs.installertype }}"
+              Description = "${{ steps.body.outputs.softwaredescription }}"
             }
 
             .\build.ps1 @splat
       - name: Publish package
         run: | 
           $splat = @{
-            TempDir = "`"${{ steps.package.outputs.TempDir }}`""
-            Source = "`"${{ secrets.CHOCOLATEY_SOURCE }}`""
-            ApiKey = "`"${{ secrets.CHOCOLATEY_API_KEY }}`""
+            TempDir = "${{ steps.package.outputs.TempDir }}"
+            Source = "${{ secrets.CHOCOLATEY_SOURCE }}"
+            ApiKey = "${{ secrets.CHOCOLATEY_API_KEY }}"
           }
 
           .\publish.ps1 @splat
