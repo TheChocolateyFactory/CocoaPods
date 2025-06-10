@@ -22,6 +22,7 @@ jobs:
 
       - name: Comment on issue
         uses: peter-evans/create-or-update-comment@v4
+        id: comment
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
@@ -64,3 +65,28 @@ jobs:
           }
 
           .\publish.ps1 @splat
+      - name: Update Issue Comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.comment.outputs.comment-id }}
+          body: |
+            **UPDATE:**
+            The package has been created and published!
+
+            Install it with the following command:
+
+            ```powershell
+            choco install ${{ steps.body.outputs.packageid }} --version ${{ steps.body.outputs.packageversion }} --source="${{ secrets.CHOCOLATEY_SOURCE }}"
+            ```
+          reactions: |
+            hooray
+
+      - name: Close issue
+        uses: peter-evans/close-issue@v2
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          comment: |
+            The issue has been closed as the package has been created and published.
+            Thank you for your contribution!
+          labels: |
+             package-published
