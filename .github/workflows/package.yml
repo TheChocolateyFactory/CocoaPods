@@ -34,29 +34,31 @@ jobs:
       - name: Parse Issue Body
         id: body
         run: |
-          .\issueparser.ps1 -IssueBody ${{ github.event.issue.body }}
+          $body = @'
+          ${{ github.event.issue.body }}
+          '@
+          .\issueparser.ps1 -IssueBody $body
 
       - name: Make package from template
         id: package
         run: |
-          $splat = @{
-            PackageId = ${{ steps.body.outputs.PackageId }}
-            PackageVersion = ${{ steps.body.outputs.PackageVersion }}
-            Url = ${{ steps.body.outputs.Url }}
-            SilentArgs = ${{ steps.body.outputs.SilentArgs }}
-            Author = ${{ steps.body.outputs.Author }}
-            InstallerType = ${{ steps.body.outputs.InstallerType }}
-            Summary = ${{ steps.body.outputs.Summary }}
-            Description = ${{ steps.body.outputs.Description }}
-          }
+            $splat = @{
+              PackageId = "`"${{ steps.body.outputs.PackageId }}`""
+              PackageVersion = "`"${{ steps.body.outputs.PackageVersion }}`""
+              Url = "`"${{ steps.body.outputs.Url }}`""
+              SilentArgs = "`"${{ steps.body.outputs.SilentArgs }}`""
+              Author = "`"${{ steps.body.outputs.Author }}`""
+              InstallerType = "`"${{ steps.body.outputs.InstallerType }}`""
+              Description = "`"${{ steps.body.outputs.Description }}`""
+            }
 
-          .\build.ps1 @splat
+            .\build.ps1 @splat
       - name: Publish package
         run: | 
           $splat = @{
-            TempDir = ${{ steps.package.outputs.TempDir }}
-            Source = ${{ secrets.CHOCOLATEY_SOURCE }}
-            ApiKey = ${{ secrets.CHOCOLATEY_API_KEY }}
+            TempDir = "`"${{ steps.package.outputs.TempDir }}`""
+            Source = "`"${{ secrets.CHOCOLATEY_SOURCE }}`""
+            ApiKey = "`"${{ secrets.CHOCOLATEY_API_KEY }}`""
           }
 
           .\publish.ps1 @splat
