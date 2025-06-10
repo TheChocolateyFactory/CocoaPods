@@ -1,0 +1,56 @@
+name: new-package-issue
+on:
+  issues:
+    types: [opened]
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  create-package:
+    if: contains(github.event.issue.labels.*.name, 'chocolatey-package-automation')
+    runs-on: windows-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history for all branches and tags to ensure we can rebase the branch on main.
+
+      - name: Comment on issue
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Thank you for your submission! A new package will be created based on the information provided.
+
+          reactions: |
+             rocket
+             +1
+
+      - name: Make package from template
+        id: package
+        run: |
+          $splat = @{
+            PackageId = ${{ github.event.issue.PackageID}}
+            Url = ${{ github.event.issue.body.url }}
+            SilentArgs = ${{ github.event.issue.body.silentArgs }}
+            Author = ${{ github.event.issue.body.author }}
+            InstallerType = ${{ github.event.issue.body.installertype }}
+            Summary = ${{ github.event.issue.body.summary }}
+            Description = ${{ github.event.issue.body.description }}
+          }
+
+          .\build.ps1 @splat
+      - name: Publish package
+        run: | 
+          $splat = @{
+            TempDir = ${{ steps.package.outputs.TempDir }}
+            Source = ${{ secrets.CHOCOLATEY_SOURCE }}
+            ApiKey = ${{ secrets.CHOCOLATEY_API_KEY }}
+          }
+
+          .\publish.ps1 @splat
