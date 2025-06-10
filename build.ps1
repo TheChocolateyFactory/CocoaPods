@@ -49,8 +49,9 @@ end {
 
     # Checksum our file
     $file = Split-path $Url -Leaf
-
+    
     $download = Join-Path $tempDir -ChildPath $file
+    Write-Output "Preparing to download $file from $url to $download"
     [System.Net.WebClient]::new().DownloadFile($Url, $download)
 
     $checksum = (Get-FileHash $download -Algorithm SHA256).Hash
