@@ -18,6 +18,15 @@ body:
       required: true
 
   - type: input
+    id: PackageVersion
+    attributes:
+      label: Package Version
+      description: The version of the software you want to package.
+      placeholder: e.g. 1.2.3
+    validations:
+      required: true
+
+  - type: input
     id: url
     attributes:
       label: Software Download Url
@@ -32,6 +41,15 @@ body:
       label: Silent Arguments
       description: Provide the arguments used to install the software silently
       placeholder: /qn /norestart
+    validations:
+      required: true
+
+  - type: input
+    id: validExitCodes
+    attributes:
+      label: Valid Exit Codes
+      description: Provide the exit codes that indicate a successful installation.
+      placeholder: 0, 3010
     validations:
       required: true
 
@@ -53,12 +71,12 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: summary
+  - type: input
+    id: softwarename
     attributes:
-      label: Package Summary
-      description: Provide a brief summary of the software.
-      placeholder: e.g. This software is used for doing great things.
+      label: Software Name
+      description: The name of the software as it shows in Programs and Features.
+      placeholder: e.g. Google Chrome.
     validations:
       required: true
 

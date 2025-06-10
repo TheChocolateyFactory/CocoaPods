@@ -35,10 +35,6 @@ Param(
 
     [Parameter(Mandatory)]
     [String]
-    $Summary,
-
-    [Parameter(Mandatory)]
-    [String]
     $Description
 
 )
