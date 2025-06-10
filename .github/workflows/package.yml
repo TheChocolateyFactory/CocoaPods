@@ -34,23 +34,20 @@ jobs:
       - name: Parse Issue Body
         id: body
         run: |
-          Write-Output "Reading information from GitHub issue..."
-          $body = @'
-          ${{ github.event.issue.body }}
-          '@
+          .\issueparser.ps1 -IssueBody ${{ github.event.issue.body }}
 
-          Write-output $body
       - name: Make package from template
         id: package
         run: |
           $splat = @{
-            PackageId = ${{ github.event.issue.PackageID}}
-            Url = ${{ github.event.issue.body.url }}
-            SilentArgs = ${{ github.event.issue.body.silentArgs }}
-            Author = ${{ github.event.issue.body.author }}
-            InstallerType = ${{ github.event.issue.body.installertype }}
-            Summary = ${{ github.event.issue.body.summary }}
-            Description = "`"${{ github.event.issue.body.description }}`""
+            PackageId = ${{ steps.body.outputs.PackageId }}
+            PackageVersion = ${{ steps.body.outputs.PackageVersion }}
+            Url = ${{ steps.body.outputs.Url }}
+            SilentArgs = ${{ steps.body.outputs.SilentArgs }}
+            Author = ${{ steps.body.outputs.Author }}
+            InstallerType = ${{ steps.body.outputs.InstallerType }}
+            Summary = ${{ steps.body.outputs.Summary }}
+            Description = ${{ steps.body.outputs.Description }}
           }
 
           .\build.ps1 @splat
