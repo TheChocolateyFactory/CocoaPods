@@ -31,6 +31,15 @@ jobs:
              rocket
              +1
 
+      - name: Parse Issue Body
+        id: body
+        run: |
+          Write-Output "Reading information from GitHub issue..."
+          $body = @'
+          ${{ github.event.issue.body }}
+          '@
+
+          Write-output $body
       - name: Make package from template
         id: package
         run: |
