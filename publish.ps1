@@ -5,6 +5,7 @@ Param(
     $TempDir,
 
     [Parameter(Mandatory)]
+    [Alias('Source')]
     [String]
     $RepositoryUrl,
 
